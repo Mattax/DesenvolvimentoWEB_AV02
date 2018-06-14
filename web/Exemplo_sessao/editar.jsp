@@ -44,7 +44,7 @@
 
             String nome = request.getParameter("nome");
 
-            String URL_CONEXAO = "jdbc:mysql://localhost/uninove_vila_prudente";
+            String URL_CONEXAO = "jdbc:mysql://localhost/projeto";
             String USUARIO = "root";
             String SENHA = "";
             Class.forName("com.mysql.jdbc.Driver");

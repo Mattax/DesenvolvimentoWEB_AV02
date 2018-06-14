@@ -1,12 +1,10 @@
-<%-- 
-    Document   : listar.jsp
-    Created on : 06/04/2018, 18:43:21
-    Author     : Leandro
---%>
 
-<%@page import="java.util.List"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.*"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="bean.ProdutosBean"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -35,17 +33,76 @@
                 <br>
                 <input type="submit" value="Logout" />
             </form>
+                
+        <%
+               List<ProdutosBean> listClient = (List<ProdutosBean>) request.getAttribute("listProdutos");
+        %>
+                
+         
         </div>
         <div class="content">
         <form action="" method="post">                       
-            Nome do Produto:<input type="text" name="nome"/>       
+            Nome do Produto:<input type="text" name="buscar"/>       
+                            Qtd: 
+                            <select name = 'qtd'>
+                                <option type="text" value="2">2</option>               
+                                <option type="text" value="3">3</option>               
+                                <option type="text" value="4">4</option>               
+                                <option type="text" value="5">5</option>               
+                                <option type="text" value="6">6</option>               
+                                <option type="text" value="7" selected>7</option>               
+                            </select>
                             <input type="submit" value="Buscar"/>
                             <br><br>
                             <input type="submit" value="Ver Itens Cadastrados"/> 
             <br><br>
         </form>
         
-       
+        <table>
+            <% /** int qtd = 0;
+            
+                if(request.getParameter("qtd") != null || request.getParameter("pag") != null){ **/%>
+            <tr>
+                <th>ID PRODUTO</th>
+                <th>NOME</th>
+                <th>MARCA</th>
+                <th>FORNECEDOR</th>
+                <th>SETOR</th>
+                <th>PERECÍVEL  </th>
+                
+            </tr> 
+                
+            </tr>    
+            <% /**
+                
+                try{
+                 qtd = Integer.valueOf(request.getParameter("qtd"));
+                }catch(Exception e){
+                }
+
+                if(listProduto!=null){
+                    int i=0;
+                    for(ProdutosbEAN pt: listProduto){
+                        out.print("<tr><td>" + pt.getId()+ "</td><td>" + pt.getNome()+ "</td>");
+                        out.print("<td style='white-space: nowrap;'>" + pt.getMarca()+ "</td><td style='white-space: nowrap;'>" + pt.getFornecedor()+ "</td>");
+                        out.print("<td style='white-space: nowrap;'>" + pt.getSetor()+ "</td><td style='white-space: nowrap;'>" + pt.getPerecivel()+ "</td>");
+                        
+                        i++;
+                        if(i == qtd)
+                            break;
+                    }
+                }
+                }
+                ProdutosDAO a = ProdutosDAO();
+                if(request.getParameter("buscar") == null)
+                    for(int i = 1; a.pg() >= i ;i++)
+                        out.print("<input type='button' style='width:25px; margin:5px' onClick='location.href=\""+request.getContextPath()+"/ProdutosServlet?pag="+i+"&qtd="+qtd+"\"' value='"+i+"'>");
+                else
+                     for(int i = 1; a.pgbsc(request.getParameter("buscar")) >= i ;i++)
+                        out.print("<input type='button' style='width:25px; margin:5px' onClick='location.href=\""+request.getContextPath()+"/ProdutosServlet?buscar="+request.getParameter("buscar")+"&pag="+i+"&qtd="+qtd+"\"' value='"+i+"'>");
+                
+             **/ %> 
+        </table>
 
         <%
             request.setCharacterEncoding("utf8");
@@ -53,7 +110,7 @@
             String nome = request.getParameter("nome");
             String nome2 = request.getParameter("nome2");
 
-            String URL_CONEXAO = "jdbc:mysql://localhost/uninove_vila_prudente";
+            String URL_CONEXAO = "jdbc:mysql://localhost/projeto";
             String USUARIO = "root";
             String SENHA = "";
             Class.forName("com.mysql.jdbc.Driver");
@@ -90,8 +147,13 @@
             conexao.close();
         %>
     </div>
+    
     <div class="bott">
             <a> <br>® Mattax corporation  </a>
+          
+            
     </div>
+    
+    
     </body>
 </html>

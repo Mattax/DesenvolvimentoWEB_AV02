@@ -6,8 +6,8 @@
 package ServletPackage;
 
 
-import DAO.ClientesDAO;
-import bean.ClientesBean;
+import DAO.ProdutosDAO;
+import bean.ProdutosBean;
 import java.io.IOException;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-public class ClienteServlet extends HttpServlet {
+public class ProdutosServlet extends HttpServlet {
     
  
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -38,71 +38,51 @@ public class ClienteServlet extends HttpServlet {
             
             
             if(request.getParameter("buscar") == null){       
-                ClientesDAO ad = new ClientesDAO();
-                List<ClientesBean> listBean = ad.read(pag);
-                request.setAttribute("listClientes", listBean);
+                ProdutosDAO ad = new ProdutosDAO();
+                List<ProdutosBean> listBean = ad.read(pag);
+                request.setAttribute("listProdutos", listBean);
             }else{
-                ClientesDAO ad = new ClientesDAO();
-                List<ClientesBean> listBean = ad.buscar(pag,request.getParameter("buscar"));
-                request.setAttribute("listClientes", listBean);
+                 ProdutosDAO ad = new ProdutosDAO();
+                List<ProdutosBean> listBean = ad.buscar(pag,request.getParameter("buscar"));
+                request.setAttribute("listProdutos", listBean);
             }
             
             if(request.getParameter("apagar") != null){
                     int s = Integer.valueOf(request.getParameter("apagar"));
-                    ClientesDAO ab = new ClientesDAO();
+                    ProdutosDAO ab = new ProdutosDAO();
                     ab.delete(s);
             }
             if(request.getParameter("alterar") != null){
-                    ClientesBean s = new ClientesBean(request.getParameter("alter"),request.getParameter("end"),request.getParameter("tel"),request.getParameter("cel"),request.getParameter("cpf"));
-                    ClientesDAO ab = new ClientesDAO();
+                    ProdutosBean s = new ProdutosBean(request.getParameter("alter"),request.getParameter("end"),request.getParameter("tel"),request.getParameter("cel"),request.getParameter("cpf"));
+                    ProdutosDAO ab = new ProdutosDAO();
                     ab.update(s);
             }
             if(request.getParameter("incluir") != null){
-                    ClientesBean i = new ClientesBean(request.getParameter("inome"),request.getParameter("iend"),request.getParameter("itel"),request.getParameter("icel"),request.getParameter("icpf"));
-                    ClientesDAO a = new ClientesDAO();
+                    ProdutosBean i = new ProdutosBean(request.getParameter("inome"),request.getParameter("iend"),request.getParameter("itel"),request.getParameter("icel"),request.getParameter("icpf"));
+                    ProdutosDAO a = new ProdutosDAO();
                     a.insert(i);
             }
             
             
-            request.getRequestDispatcher("Exemplo_sessao/home.jsp").forward(request, response);            
+            request.getRequestDispatcher("Exemplo_sessao/listar.jsp").forward(request, response);            
     }
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }
