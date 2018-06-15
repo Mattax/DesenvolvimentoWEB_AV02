@@ -37,7 +37,7 @@ public class ProdutosServlet extends HttpServlet {
             }
            String teste = request.getParameter("buscar");
             
-            if(request.getParameter("buscar") == ""){       
+            if(request.getParameter("buscar") == null){       
                 ProdutosDAO ad = new ProdutosDAO();
                 List<ProdutosBean> listBean = ad.read(pag);
                 request.setAttribute("listProduto", listBean);
@@ -53,12 +53,12 @@ public class ProdutosServlet extends HttpServlet {
                     ab.delete(s);
             }
             if(request.getParameter("altera") != null){
-                    ProdutosBean s = new ProdutosBean(request.getParameter("id"),request.getParameter("nome"),request.getParameter("marca"),request.getParameter("fornecedor"),request.getParameter("setor"),request.getParameter("perecivel"));
+                    ProdutosBean s = new ProdutosBean(request.getParameter("id"),request.getParameter("nome"),request.getParameter("setor"),request.getParameter("perecivel"),request.getParameter("marca"),request.getParameter("fornecedor"));
                     ProdutosDAO ab = new ProdutosDAO();
                     ab.update(s);
             }
             if(request.getParameter("inclui") != null){
-                    ProdutosBean i = new ProdutosBean(request.getParameter("iid"),request.getParameter("inome"),request.getParameter("imarca"),request.getParameter("iperecivel"),request.getParameter("isetor"),request.getParameter("ifornecedor"));
+                    ProdutosBean i = new ProdutosBean(request.getParameter("iid"),request.getParameter("inome"),request.getParameter("isetor"),request.getParameter("iperecivel"),request.getParameter("imarca"),request.getParameter("ifornecedor"));
                     ProdutosDAO a = new ProdutosDAO();
                     a.insert(i);
             }

@@ -32,7 +32,7 @@ public class ProdutosDAO {
     public List<ProdutosBean> buscar(int p, String s){
         ArrayList list = new ArrayList();
         try{
-        PreparedStatement ps = conexao.prepareStatement("SELECT c.* FROM clientes c where LOCATE('"+s+"',c.nome)>0 or LOCATE('"+s+"',c.setor)>0 or LOCATE('"+s+"',c.perecivel)>0 or LOCATE('"+s+"',c.marca)>0 or LOCATE('"+s+"',c.fornecedor)>0 order by nome limit "+p+",7");
+        PreparedStatement ps = conexao.prepareStatement("SELECT c.* FROM aluno c where LOCATE('"+s+"',c.nome)>0 or LOCATE('"+s+"',c.setor)>0 or LOCATE('"+s+"',c.perecivel)>0 or LOCATE('"+s+"',c.marca)>0 or LOCATE('"+s+"',c.fornecedor)>0 order by nome limit "+p+",7");
         ResultSet r = ps.executeQuery();
         while(r.next()){
             ProdutosBean al = new ProdutosBean(r.getString("id"),r.getString("nome"),r.getString("setor"),r.getString("perecivel"),r.getString("marca"),r.getString("fornecedor"));            
@@ -74,7 +74,7 @@ public class ProdutosDAO {
     public void update(ProdutosBean in){
         try{
         Statement al = conexao.createStatement();
-        int i = al.executeUpdate("UPDATE aluno SET nome = '"+in.getNome()+"', setor = '"+in.getSetor()+"', perecivel = '"+in.getPerecivel()+"', marca = '"+in.getMarca()+"', fornecedor = '"+in.getFornecedor()+"' where id = '"+in.getId()+"'");
+        int i = al.executeUpdate("UPDATE aluno SET nome = '"+in.getNome()+"', setor = '"+in.getSetor()+"', perecivel = '"+in.getPerecivel()+"',marca = '"+in.getMarca()+"', fornecedor = '"+in.getFornecedor()+"'  where id = '"+in.getId()+"'");
         }catch(SQLException e){}    
     }
     

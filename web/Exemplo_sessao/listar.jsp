@@ -18,19 +18,19 @@
     </head>
      <script>
         function fecha(){
-                document.getElementById("alterar").style.display = "none";
+                document.getElementById("altera").style.display = "none";
         }
         function fechain(){
                 document.getElementById("inclui").style.display = "none";
         } 
-        function abre(id,nom,e,t,c,cpf){
+        function abre(id,nom,t,cpf,e,c){
             document.getElementById("altera").style.display = "block";
             document.getElementById("id").value = id;
             document.getElementById("nome").value = nom;
-            document.getElementById("marca").value = e;
             document.getElementById("setor").value = t;
+            document.getElementById("perecivel").value = cpf;    
+            document.getElementById("marca").value = e;
             document.getElementById("fornecedor").value = c;
-            document.getElementById("perecivel").value = cpf;
             document.getElementById("nome").focus();
         }
         function abrein(){
@@ -46,10 +46,10 @@
     <body >
         
         <div class="topnav">
-          <a class="active" href="home.jsp">Início</a>
-          <a href="listar.jsp">Controle</a>
+          <!-- <a class="active" href="home.jsp">Início</a> -->
+          <a href="listar.jsp">Controle de Produtos</a>
          
-          <a href="sobre.jsp">Sobre</a>
+          <!--  <a href="sobre.jsp">Sobre</a> -->
         </div>
         <% 
             if (session.getAttribute("login") != null) {
@@ -92,10 +92,10 @@
             <form action="<%=request.getContextPath()%>/ProdutosServlet" name='inclui' method="post">
                 ID <input type="text" id='iid' name="iid"><br>
                 Nome: <input type="text" id='inome' name="inome"><br>
-                Marca <input type="text" id='imarca' name="imarca"><br>
-                Fornecedor <input type="text" id='ifornecedor' name="ifornecedor"><br>
                 Setor <input type="text" id='isetor' name="isetor"><br>
                 Perecível <input type="text" id='iperecivel' name="iperecivel"><br>
+                Marca <input type="text" id='imarca' name="imarca"><br>
+                Fornecedor <input type="text" id='ifornecedor' name="ifornecedor"><br>
             <input type="submit" name="inclui" value=" Cadastrar ">
             </form>
             </div>
@@ -107,10 +107,10 @@
             <form action="<%=request.getContextPath()%>/ProdutosServlet" name='altera' method="Post">
                 ID <input type="text" id='id' name="id"><br>
                 Nome: <input type="text" id='nome' name="nome"><br>
-                Marca <input type="text" id='marca' name="marca"><br>
-                Fornecedor <input type="text" id='fornecedor' name="fornecedor"><br>
                 Setor <input type="text" id='setor' name="setor"><br>
                 Perecível <input type="text" id='perecivel' name="perecivel"><br>
+                Marca <input type="text" id='marca' name="marca"><br>
+                Fornecedor <input type="text" id='fornecedor' name="fornecedor"><br>
             <input type="submit" name="altera" value="Editar">
             </form>
             </div>
@@ -122,10 +122,10 @@
             <tr>
                 <th>ID PRODUTO</th>
                 <th>NOME</th>
+                <th>SETOR</th>
+                <th>PERECÍVEL</th>
                 <th>MARCA</th>
                 <th>FORNECEDOR</th>
-                <th>SETOR</th>
-                <th>PERECÍVEL  </th>
                 <th><input type="button" value="Cadastrar" style='width:70px;height:30px;' onClick='abrein()'></th>
                 
             </tr> 
@@ -142,9 +142,9 @@
                     int i=0;
                     for(ProdutosBean pt: listProduto){
                         out.print("<tr><td>" + pt.getId()+ "</td><td>" + pt.getNome()+ "</td>");
-                        out.print("<td style='white-space: nowrap;'>" + pt.getMarca()+ "</td><td style='white-space: nowrap;'>" + pt.getFornecedor()+ "</td>");
                         out.print("<td style='white-space: nowrap;'>" + pt.getSetor()+ "</td><td style='white-space: nowrap;'>" + pt.getPerecivel()+ "</td>");
-                        out.print("<td style='white-space: nowrap; padding:10px'><input style='padding:3px' type='button' value='Editar' onClick='abre(\""+pt.getId()+"\",\""+pt.getNome()+"\",\""+pt.getMarca()+"\",\""+pt.getFornecedor()+"\",\""+pt.getSetor()+"\",\""+pt.getPerecivel()+"\")'>"
+                        out.print("<td style='white-space: nowrap;'>" + pt.getMarca()+ "</td><td style='white-space: nowrap;'>" + pt.getFornecedor()+ "</td>");
+                        out.print("<td style='white-space: nowrap; padding:10px'><input style='padding:3px' type='button' value='Editar' onClick='abre(\""+pt.getId()+"\",\""+pt.getNome()+"\",\""+pt.getSetor()+"\",\""+pt.getPerecivel()+"\",\""+pt.getMarca()+"\",\""+pt.getFornecedor()+"\")'>"
                         + "<input type='button' style='padding:3px; margin-left:5px' value='X' onClick='deletar("+pt.getId()+")'></td></tr>");
                         i++;
                         if(i == qtd)
@@ -152,14 +152,14 @@
                     }
                 }
                 }
-               /** ProdutosDAO a = new ProdutosDAO();
+                ProdutosDAO a = new ProdutosDAO();
                 if(request.getParameter("buscar") == null)
                     for(int i = 1; a.pg() >= i ;i++)
                         out.print("<input type='button' style='width:25px; margin:5px' onClick='location.href=\""+request.getContextPath()+"/ProdutosServlet?pag="+i+"&qtd="+qtd+"\"' value='"+i+"'>");
                 else
                      for(int i = 1; a.pgbsc(request.getParameter("buscar")) >= i ;i++)
                         out.print("<input type='button' style='width:25px; margin:5px' onClick='location.href=\""+request.getContextPath()+"/ProdutosServlet?buscar="+request.getParameter("buscar")+"&pag="+i+"&qtd="+qtd+"\"' value='"+i+"'>");
-                 **/
+                 
              %> 
         </table>
     
