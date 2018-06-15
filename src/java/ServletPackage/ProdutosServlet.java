@@ -52,13 +52,13 @@ public class ProdutosServlet extends HttpServlet {
                     ProdutosDAO ab = new ProdutosDAO();
                     ab.delete(s);
             }
-            if(request.getParameter("alterar") != null){
-                    ProdutosBean s = new ProdutosBean(request.getParameter("id"),request.getParameter("alter"),request.getParameter("end"),request.getParameter("tel"),request.getParameter("cel"),request.getParameter("cpf"));
+            if(request.getParameter("altera") != null){
+                    ProdutosBean s = new ProdutosBean(request.getParameter("id"),request.getParameter("nome"),request.getParameter("marca"),request.getParameter("fornecedor"),request.getParameter("setor"),request.getParameter("perecivel"));
                     ProdutosDAO ab = new ProdutosDAO();
                     ab.update(s);
             }
             if(request.getParameter("incluir") != null){
-                    ProdutosBean i = new ProdutosBean(request.getParameter("idi"),request.getParameter("inome"),request.getParameter("iend"),request.getParameter("itel"),request.getParameter("icel"),request.getParameter("icpf"));
+                    ProdutosBean i = new ProdutosBean(request.getParameter("iid"),request.getParameter("inome"),request.getParameter("isetor"),request.getParameter("iperecivel"),request.getParameter("imarca"),request.getParameter("ifornecedor"));
                     ProdutosDAO a = new ProdutosDAO();
                     a.insert(i);
             }

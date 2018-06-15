@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
         if (list.size() > 0) {
             HttpSession sessao = request.getSession();
             sessao.setAttribute("login", request.getParameter("login"));
-            pagina = request.getContextPath()+"/Exemplo_sessao/home.jsp";
+            pagina = request.getContextPath()+"/Exemplo_sessao/listar.jsp";
         } else if (oAcao.equals("logout")) {
             HttpSession sessao = request.getSession();
             sessao.invalidate();
