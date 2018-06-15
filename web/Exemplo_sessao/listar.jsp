@@ -1,4 +1,5 @@
 
+<%@page import="DAO.ProdutosDAO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.DriverManager"%>
@@ -15,6 +16,32 @@
         <link href="<%=request.getContextPath()%>/css/estiloFormulario.css" rel="stylesheet" type="text/css"/>
       
     </head>
+     <script>
+        function fecha(){
+                document.getElementById("altera").style.display = "none";
+        }
+        function fechain(){
+                document.getElementById("inclui").style.display = "none";
+        } 
+        function abre(nom,e,t,c,cpf){
+            document.getElementById("altera").style.display = "block";
+            document.getElementById("tx").value = nom;
+            document.getElementById("end").value = e;
+            document.getElementById("tel").value = t;
+            document.getElementById("cel").value = c;
+            document.getElementById("cpf").value = cpf;
+            document.getElementById("tx").focus();
+        }
+        function abrein(){
+            document.getElementById("inclui").style.display = "block";
+            document.getElementById("tx").focus();
+        }
+        function deletar(id){
+             var answer = confirm ("Deseja realmente excluir?");
+                if (answer)
+                    location.href="?apagar="+id;
+        }
+    </script>
     <body >
         
         <div class="topnav">
@@ -25,6 +52,9 @@
           <a href="excluirpage.jsp">Excluir</a>
           <a href="sobre.jsp">Sobre</a>
         </div>
+        <% 
+            if (session.getAttribute("login") != null) {
+        %>
         <br>
         <div id="usuario">
            <form name="frmLogout" method="post" action="<%=request.getContextPath()%>/LoginServlet">
@@ -35,14 +65,15 @@
             </form>
                 
         <%
-               List<ProdutosBean> listClient = (List<ProdutosBean>) request.getAttribute("listProdutos");
+               List<ProdutosBean> listProduto = (List<ProdutosBean>) request.getAttribute("listProduto");
         %>
                 
          
         </div>
         <div class="content">
-        <form action="" method="post">                       
-            Nome do Produto:<input type="text" name="buscar"/>       
+        <form action="<%=request.getContextPath()%>/ProdutosServlet">                       
+            Nome do Produto:<input type="text" name="buscar"/> 
+            <input type ='hidden' name="pag" value='1'>
                             Qtd: 
                             <select name = 'qtd'>
                                 <option type="text" value="2">2</option>               
@@ -54,14 +85,14 @@
                             </select>
                             <input type="submit" value="Buscar"/>
                             <br><br>
-                            <input type="submit" value="Ver Itens Cadastrados"/> 
+                            
             <br><br>
         </form>
         
         <table>
-            <% /** int qtd = 0;
+            <%  int qtd = 0;
             
-                if(request.getParameter("qtd") != null || request.getParameter("pag") != null){ **/%>
+                if(request.getParameter("qtd") != null || request.getParameter("pag") != null){ %>
             <tr>
                 <th>ID PRODUTO</th>
                 <th>NOME</th>
@@ -73,7 +104,7 @@
             </tr> 
                 
             </tr>    
-            <% /**
+            <% 
                 
                 try{
                  qtd = Integer.valueOf(request.getParameter("qtd"));
@@ -82,7 +113,7 @@
 
                 if(listProduto!=null){
                     int i=0;
-                    for(ProdutosbEAN pt: listProduto){
+                    for(ProdutosBean pt: listProduto){
                         out.print("<tr><td>" + pt.getId()+ "</td><td>" + pt.getNome()+ "</td>");
                         out.print("<td style='white-space: nowrap;'>" + pt.getMarca()+ "</td><td style='white-space: nowrap;'>" + pt.getFornecedor()+ "</td>");
                         out.print("<td style='white-space: nowrap;'>" + pt.getSetor()+ "</td><td style='white-space: nowrap;'>" + pt.getPerecivel()+ "</td>");
@@ -93,7 +124,7 @@
                     }
                 }
                 }
-                ProdutosDAO a = ProdutosDAO();
+                ProdutosDAO a = new ProdutosDAO();
                 if(request.getParameter("buscar") == null)
                     for(int i = 1; a.pg() >= i ;i++)
                         out.print("<input type='button' style='width:25px; margin:5px' onClick='location.href=\""+request.getContextPath()+"/ProdutosServlet?pag="+i+"&qtd="+qtd+"\"' value='"+i+"'>");
@@ -101,10 +132,10 @@
                      for(int i = 1; a.pgbsc(request.getParameter("buscar")) >= i ;i++)
                         out.print("<input type='button' style='width:25px; margin:5px' onClick='location.href=\""+request.getContextPath()+"/ProdutosServlet?buscar="+request.getParameter("buscar")+"&pag="+i+"&qtd="+qtd+"\"' value='"+i+"'>");
                 
-             **/ %> 
+             %> 
         </table>
 
-        <%
+        <%/**
             request.setCharacterEncoding("utf8");
 
             String nome = request.getParameter("nome");
@@ -145,9 +176,15 @@
             }
             out.print("</table>"); 
             conexao.close();
-        %>
+       **/  %>
     </div>
     
+     <% }else{
+            out.print("<h4>Usuário não logado!</h4>");
+            out.print("<a href='" + request.getContextPath() + "/Exemplo_sessao/login.jsp'>Voltar</a>");
+        }%>
+
+        
     <div class="bott">
             <a> <br>® Mattax corporation  </a>
           

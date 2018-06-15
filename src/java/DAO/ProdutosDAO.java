@@ -23,7 +23,7 @@ public class ProdutosDAO {
         PreparedStatement ps = conexao.prepareStatement("SELECT c.* FROM aluno c order by nome limit "+p+",7");
         ResultSet r = ps.executeQuery();
         while(r.next()){
-            ProdutosBean al = new ProdutosBean(r.getString("nome"),r.getString("setor"),r.getString("´perecivel"),r.getString("marca"),r.getString("fornecedor"));            
+            ProdutosBean al = new ProdutosBean(r.getString("id"),r.getString("nome"),r.getString("setor"),r.getString("perecivel"),r.getString("marca"),r.getString("fornecedor"));            
             list.add(al);
         }
         }catch(SQLException e){}
@@ -35,7 +35,7 @@ public class ProdutosDAO {
         PreparedStatement ps = conexao.prepareStatement("SELECT c.* FROM clientes c where LOCATE('"+s+"',c.nome)>0 or LOCATE('"+s+"',c.setor)>0 or LOCATE('"+s+"',c.perecivel)>0 or LOCATE('"+s+"',c.marca)>0 or LOCATE('"+s+"',c.fornecedor)>0 order by nome limit "+p+",7");
         ResultSet r = ps.executeQuery();
         while(r.next()){
-            ProdutosBean al = new ProdutosBean(r.getString("nome"),r.getString("setor"),r.getString("perecivel"),r.getString("marca"),r.getString("fornecedor"));            
+            ProdutosBean al = new ProdutosBean(r.getString("id"),r.getString("nome"),r.getString("setor"),r.getString("perecivel"),r.getString("marca"),r.getString("fornecedor"));            
             list.add(al);
         }
         }catch(SQLException e){}

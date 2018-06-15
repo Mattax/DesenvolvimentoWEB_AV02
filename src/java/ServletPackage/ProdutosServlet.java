@@ -35,16 +35,16 @@ public class ProdutosServlet extends HttpServlet {
             }else{
                 pag = 1;
             }
+           String teste = request.getParameter("buscar");
             
-            
-            if(request.getParameter("buscar") == null){       
+            if(request.getParameter("buscar") == ""){       
                 ProdutosDAO ad = new ProdutosDAO();
                 List<ProdutosBean> listBean = ad.read(pag);
-                request.setAttribute("listProdutos", listBean);
+                request.setAttribute("listProduto", listBean);
             }else{
                  ProdutosDAO ad = new ProdutosDAO();
                 List<ProdutosBean> listBean = ad.buscar(pag,request.getParameter("buscar"));
-                request.setAttribute("listProdutos", listBean);
+                request.setAttribute("listProduto", listBean);
             }
             
             if(request.getParameter("apagar") != null){
@@ -53,12 +53,12 @@ public class ProdutosServlet extends HttpServlet {
                     ab.delete(s);
             }
             if(request.getParameter("alterar") != null){
-                    ProdutosBean s = new ProdutosBean(request.getParameter("alter"),request.getParameter("end"),request.getParameter("tel"),request.getParameter("cel"),request.getParameter("cpf"));
+                    ProdutosBean s = new ProdutosBean(request.getParameter("id"),request.getParameter("alter"),request.getParameter("end"),request.getParameter("tel"),request.getParameter("cel"),request.getParameter("cpf"));
                     ProdutosDAO ab = new ProdutosDAO();
                     ab.update(s);
             }
             if(request.getParameter("incluir") != null){
-                    ProdutosBean i = new ProdutosBean(request.getParameter("inome"),request.getParameter("iend"),request.getParameter("itel"),request.getParameter("icel"),request.getParameter("icpf"));
+                    ProdutosBean i = new ProdutosBean(request.getParameter("idi"),request.getParameter("inome"),request.getParameter("iend"),request.getParameter("itel"),request.getParameter("icel"),request.getParameter("icpf"));
                     ProdutosDAO a = new ProdutosDAO();
                     a.insert(i);
             }

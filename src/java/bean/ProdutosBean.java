@@ -5,14 +5,15 @@ import br.com.ConexaoBanco.ConexaoMySQL;
 import java.sql.*;
 
 public class ProdutosBean {
-            int id;
+            String id;
             String setor;
             String perecivel;
             String nome;
             String marca;
             String fornecedor;
 
-    public ProdutosBean(String nome, String setor, String perecivel, String marca, String fornecedor) {
+    public ProdutosBean(String id, String nome, String setor, String perecivel, String marca, String fornecedor) {
+        this.id = id;
         this.nome = nome;
         this.setor = setor;
         this.perecivel = perecivel;
@@ -34,11 +35,11 @@ public class ProdutosBean {
         }
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
