@@ -12,7 +12,7 @@ public class ProdutosDAO {
     public void insert(ProdutosBean in){
         try{
         Statement is = conexao.createStatement();
-        String sql = "INSERT INTO aluno (nome,setor,perecivel,marca,fornecedor) VALUES ('"+in.getNome()+"','"+in.getSetor()+"','"+in.getPerecivel()+"','"+in.getMarca()+"','"+in.getFornecedor()+"')";
+        String sql = "INSERT INTO aluno (id,nome,setor,perecivel,marca,fornecedor) VALUES ('"+in.getId()+"','"+in.getNome()+"','"+in.getSetor()+"','"+in.getPerecivel()+"','"+in.getMarca()+"','"+in.getFornecedor()+"')";
         is.executeUpdate(sql);
         is.close();
         }catch(SQLException e){}
@@ -68,13 +68,13 @@ public class ProdutosDAO {
     public void delete(int id){
         try{
         Statement dl = conexao.createStatement();
-        int i = dl.executeUpdate("DELETE FROM aluno WHERE ra = "+id+";");
+        int i = dl.executeUpdate("DELETE FROM aluno WHERE id = "+id+";");
         }catch(SQLException e){}
     }
     public void update(ProdutosBean in){
         try{
         Statement al = conexao.createStatement();
-        int i = al.executeUpdate("UPDATE aluno SET nome = '"+in.getNome()+"', endereco = '"+in.getSetor()+"', telefone = '"+in.getPerecivel()+"', celular = '"+in.getMarca()+"', cpf = '"+in.getMarca()+"' where id = '"+in.getId()+"'");
+        int i = al.executeUpdate("UPDATE aluno SET nome = '"+in.getNome()+"', setor = '"+in.getSetor()+"', perecivel = '"+in.getPerecivel()+"', marca = '"+in.getMarca()+"', fornecedor = '"+in.getFornecedor()+"' where id = '"+in.getId()+"'");
         }catch(SQLException e){}    
     }
     

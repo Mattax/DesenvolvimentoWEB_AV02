@@ -21,10 +21,11 @@
                 document.getElementById("alterar").style.display = "none";
         }
         function fechain(){
-                document.getElementById("incluir").style.display = "none";
+                document.getElementById("inclui").style.display = "none";
         } 
-        function abre(nom,e,t,c,cpf){
+        function abre(id,nom,e,t,c,cpf){
             document.getElementById("altera").style.display = "block";
+            document.getElementById("id").value = id;
             document.getElementById("nome").value = nom;
             document.getElementById("marca").value = e;
             document.getElementById("setor").value = t;
@@ -33,8 +34,8 @@
             document.getElementById("nome").focus();
         }
         function abrein(){
-            document.getElementById("incluir").style.display = "block";
-            document.getElementById("tx").focus();
+            document.getElementById("inclui").style.display = "block";
+            document.getElementById("iid").focus();
         }
         function deletar(id){
              var answer = confirm ("Deseja realmente excluir?");
@@ -88,22 +89,23 @@
         </form>
           <div id="inclui">
             <button onClick="fechain()" > x </button>
-            <form action="<%=request.getContextPath()%>/ProdutosServlet" name='incluir' method="post">
+            <form action="<%=request.getContextPath()%>/ProdutosServlet" name='inclui' method="post">
                 ID <input type="text" id='iid' name="iid"><br>
                 Nome: <input type="text" id='inome' name="inome"><br>
                 Marca <input type="text" id='imarca' name="imarca"><br>
                 Fornecedor <input type="text" id='ifornecedor' name="ifornecedor"><br>
                 Setor <input type="text" id='isetor' name="isetor"><br>
                 Perecível <input type="text" id='iperecivel' name="iperecivel"><br>
-            <input type="submit" name="incluir" value=" Cadastrar ">
+            <input type="submit" name="inclui" value=" Cadastrar ">
             </form>
             </div>
             
             
             
             <div id="altera">
-            <button onClick="fecha()">X</button>
-            <form action="<%=request.getContextPath()%>/ProdutosServlet" name='alterar' method="Post">
+            <button onClick="fecha()"> X </button>
+            <form action="<%=request.getContextPath()%>/ProdutosServlet" name='altera' method="Post">
+                ID <input type="text" id='id' name="id"><br>
                 Nome: <input type="text" id='nome' name="nome"><br>
                 Marca <input type="text" id='marca' name="marca"><br>
                 Fornecedor <input type="text" id='fornecedor' name="fornecedor"><br>
@@ -142,7 +144,7 @@
                         out.print("<tr><td>" + pt.getId()+ "</td><td>" + pt.getNome()+ "</td>");
                         out.print("<td style='white-space: nowrap;'>" + pt.getMarca()+ "</td><td style='white-space: nowrap;'>" + pt.getFornecedor()+ "</td>");
                         out.print("<td style='white-space: nowrap;'>" + pt.getSetor()+ "</td><td style='white-space: nowrap;'>" + pt.getPerecivel()+ "</td>");
-                        out.print("<td style='white-space: nowrap; padding:10px'><input style='padding:3px' type='button' value='Editar' onClick='abre(\""+pt.getNome()+"\",\""+pt.getMarca()+"\",\""+pt.getFornecedor()+"\",\""+pt.getSetor()+"\",\""+pt.getPerecivel()+"\")'>"
+                        out.print("<td style='white-space: nowrap; padding:10px'><input style='padding:3px' type='button' value='Editar' onClick='abre(\""+pt.getId()+"\",\""+pt.getNome()+"\",\""+pt.getMarca()+"\",\""+pt.getFornecedor()+"\",\""+pt.getSetor()+"\",\""+pt.getPerecivel()+"\")'>"
                         + "<input type='button' style='padding:3px; margin-left:5px' value='X' onClick='deletar("+pt.getId()+")'></td></tr>");
                         i++;
                         if(i == qtd)
